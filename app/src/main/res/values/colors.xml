@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="hui">#E3E0E0</color>
+    <color name="bg_red">#72B12626</color>
 </resources>

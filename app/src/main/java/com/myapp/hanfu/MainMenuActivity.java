@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener{
     private Fragment_Community communityFrag=new Fragment_Community();
     private Fragment_Shop shopFrag=new Fragment_Shop();
     private Fragment_User userFrag=new Fragment_User();

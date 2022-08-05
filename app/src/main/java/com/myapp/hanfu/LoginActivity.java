@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText user;
     private EditText pwd;
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         //隐藏系统自带的标题栏
         ActionBar actionBar = getSupportActionBar();
@@ -27,17 +27,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.hide();
         }
 
+        initView();
+    }
+
+    private void initView() {
         user = (EditText) findViewById(R.id.et_user);
         pwd = (EditText) findViewById(R.id.et_pwd);
         login = (Button) findViewById(R.id.bt_login);
         register = (Button) findViewById(R.id.bt_register);
         login.setOnClickListener(this);
+        register.setOnClickListener(this);
     }
+
     public void onClick(View v){
         switch (v.getId()){
             case R.id.bt_login:
                 if("admin".equals(user.getText().toString())&&"123456".equals(pwd.getText().toString())){
-                    Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(this, "用户名或密码错误，请重新输入！", Toast.LENGTH_SHORT).show();
