@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText user;
@@ -42,13 +46,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         switch (v.getId()){
             case R.id.bt_login:
-                if("admin".equals(user.getText().toString())&&"123456".equals(pwd.getText().toString())){
-                    Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(this, "用户名或密码错误，请重新输入！", Toast.LENGTH_SHORT).show();
+                String name = user.getText().toString();
+                String password = pwd.getText().toString();
+                if ("".equals(name) || "".equals(password)) {
+                    Toast.makeText(LoginActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                List<User> users = LitePal.findAll(User.class);
+                for (User user : users) {
+                    if (!user.getUser().equals(name)) {
+                        Toast.makeText(LoginActivity.this, "账号未注册！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (user.getUser().equals(name) && !user.getPwd().equals(password)) {
+                        Toast.makeText(LoginActivity.this, "账号或密码有误！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (user.getUser().equals(name) && user.getPwd().equals(password)) {
+                        Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                break;
             case R.id.bt_register:
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
         }
 
     }
