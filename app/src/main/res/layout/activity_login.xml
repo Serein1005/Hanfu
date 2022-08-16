@@ -57,14 +57,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#5EE60707"
+            android:background="@color/bg_red"
             android:text="登录"/>
         <Button
             android:id="@+id/bt_register"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#5EE60707"
+            android:background="@color/bg_red"
             android:layout_marginLeft="30dp"
             android:text="注册"/>
 

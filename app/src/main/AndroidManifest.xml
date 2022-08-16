@@ -16,10 +16,11 @@
         tools:ignore="MissingClass">
         <activity
             android:name=".MainMenuActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="汉服管家"/>
         <activity
             android:name=".RegisterActivity"/>
-
+        <activity android:name=".gson.all"/>
         <activity
             android:name=".LoginActivity"
             android:exported="true">
