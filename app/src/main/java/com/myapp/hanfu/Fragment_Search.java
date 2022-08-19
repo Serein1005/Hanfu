@@ -6,11 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
@@ -24,6 +25,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -31,21 +33,35 @@ import okhttp3.Response;
 
 public class Fragment_Search extends Fragment{
     private Button button;
-    private TextView textView;
-    public static String API_KEY = "http://apis.juhe.cn/cxdq/brandx";
+    private RecyclerView recyclerView;
+    private List<Car.mCar> mCarList;
+    private CarAdapter adapter;
+    private Car myCar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search,container,false);
-        button = (Button) view.findViewById(R.id.bt_car_cearch);
-        textView = (TextView) view.findViewById(R.id.tv_car_search);
+        button = (Button) view.findViewById(R.id.bt_car_search);
+        recyclerView = (RecyclerView) view.findViewById(R.id.car_recyclerview);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.getId() == R.id.bt_car_cearch) {
+                if (view.getId() == R.id.bt_car_search) {
                     sendRequestWithOkHttp();
                     //sendRequestWithHttpURLConnection();
-                    //queryBrand("B");
+
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    recyclerView.setLayoutManager(layoutManager);
+                    if(myCar != null){
+                        mCarList=myCar.getResult();
+                    }else{
+                        Log.d("mCar"," mCar为空");
+                        return ;
+                    }
+
+                    adapter = new CarAdapter(getContext(),mCarList);
+                    recyclerView.setAdapter(adapter);
                 }
             }
         });
@@ -62,10 +78,9 @@ public class Fragment_Search extends Fragment{
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
-                    showResponse(responseData);
+                    //showResponse(responseData);
                     //parseJSONWithJSONObject(responseData);
-                    parseJSONWithGSON(responseData);
-
+                    myCar = parseJSONWithGSON(responseData);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -115,7 +130,7 @@ public class Fragment_Search extends Fragment{
             @Override
             public void run() {
                 //在这里进行UI操作，将返回数据显示到界面上
-                textView.setText(response);
+                //textView.setText(response);
             }
         });
     }

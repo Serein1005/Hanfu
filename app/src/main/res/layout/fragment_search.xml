@@ -5,15 +5,16 @@
     android:id="@+id/car_search"
     android:orientation="vertical">
     <Button
-        android:id="@+id/bt_car_cearch"
+        android:id="@+id/bt_car_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search car icon"
         android:textAllCaps="false"/>
-    <TextView
-        android:id="@+id/tv_car_search"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/car_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_red"/>
+        android:layout_height="match_parent"/>
+
 
 </LinearLayout>
