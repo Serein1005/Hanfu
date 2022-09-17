@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.myapp.hanfu.Fragment_User">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/icon_userImage"
             android:layout_width="100dp"
@@ -15,8 +20,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="用户"
-            android:textSize="60dp"/>
+            android:text="修改头像"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
     </LinearLayout>
+
+    <com.myapp.hanfu.ItemGroup
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="请输入昵称"
+        app:jt_visible="false"
+        app:paddingLeft="15dp"
+        app:title="昵称" />
+
+    <com.myapp.hanfu.ItemGroup
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="请输入性别"
+        app:jt_visible="false"
+        app:paddingLeft="15dp"
+        app:title="性别" />
+
+    <com.myapp.hanfu.ItemGroup
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="请输入城市"
+        app:jt_visible="false"
+        app:paddingLeft="15dp"
+        app:title="城市 " />
+
 
 </LinearLayout>

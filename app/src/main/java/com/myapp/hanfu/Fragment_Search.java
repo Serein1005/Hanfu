@@ -1,6 +1,7 @@
 package com.myapp.hanfu;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.gson.Gson;
 
@@ -37,6 +39,7 @@ public class Fragment_Search extends Fragment{
     private List<Car.mCar> mCarList;
     private CarAdapter adapter;
     private Car myCar;
+    private Handler handler;
 
     @Nullable
     @Override
@@ -50,23 +53,30 @@ public class Fragment_Search extends Fragment{
                 if (view.getId() == R.id.bt_car_search) {
                     sendRequestWithOkHttp();
                     //sendRequestWithHttpURLConnection();
-
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    recyclerView.setLayoutManager(layoutManager);
-                    if(myCar != null){
-                        mCarList=myCar.getResult();
-                    }else{
-                        Log.d("mCar"," mCar为空");
-                        return ;
-                    }
-
-                    adapter = new CarAdapter(getContext(),mCarList);
-                    recyclerView.setAdapter(adapter);
+                    handler = new Handler();
+                    handler.postDelayed(run,2000);
                 }
             }
         });
         return view;
     }
+    public Runnable run = new Runnable() {
+        @Override
+        public void run() {
+            //LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+            StaggeredGridLayoutManager layoutManager = new
+                    StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+            if(myCar != null){
+                mCarList=myCar.getResult();
+            }else{
+                Log.d("mCar"," mCar为空");
+                return;
+            }
+            adapter = new CarAdapter(getContext(),mCarList);
+            recyclerView.setAdapter(adapter);
+        }
+    };
     private void sendRequestWithOkHttp() {
         new Thread(new Runnable() {
             @Override
@@ -169,12 +179,12 @@ public class Fragment_Search extends Fragment{
         Car cars = new Car();
         //List<Car.mCar> carList = gson.fromJson(jsonData,new TypeToken<List<Car.mCar>>(){}.getType());
         cars = gson.fromJson(jsonData, (Type) Car.class);
-        for (Car.mCar car: cars.getResult()){
+        /*for (Car.mCar car: cars.getResult()){
             Log.d("all","id is: " + car.getId());
             Log.d("all","brand_name is: " + car.getBrand_name());
             Log.d("all","brand_logo is: " + car.getBrand_logo());
             Log.d("first_letter","first_letter is: " + car.getFirst_letter());
-        }
+        }*/
         return cars;
     }
         /*Gson gson = new Gson();

@@ -10,4 +10,6 @@
     <color name="hui">#E3E0E0</color>
     <color name="bg_red">#72B12626</color>
     <color name="hui_white">#EDF1EFEF</color>
+    <color name="user_item_edt">#1C1B1B</color>
+    <color name="user_item_title">#0C0C0C</color>
 </resources>

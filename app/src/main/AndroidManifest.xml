@@ -20,6 +20,8 @@
             android:label="汉服管家"/>
         <activity
             android:name=".RegisterActivity"/>
+        <activity android:name=".Fragment_User"
+            tools:ignore="Instantiatable" />
         <activity android:name=".gson.all"/>
         <activity
             android:name=".LoginActivity"
